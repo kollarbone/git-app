@@ -1,0 +1,13 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #161b22;
+    align-items: center;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #ffffffd0;
+    margin-left: 15px;
+    margin-right: 15px;
+}

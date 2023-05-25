@@ -3,30 +3,29 @@ import { useLazyGetUserReposQuery, useSearchReposQuery } from "../store/github.a
 import { useDebounce } from "../hooks/debounce";
 import RepoCard from "../components/RepoCard";
 import "./pages.css"
-import { usePage } from "../hooks/page";
+import { usePagination } from "../hooks/page";
 
 function MainPage() {
     const [search, setSearch] = useState("")
     const [dropdown, setdropdown] = useState(false)
     const debounced = useDebounce(search)
-    const page = usePage(3)
+    const [fetchRepos, {isLoading: areCurrentReposLoading, data: repos}] = useLazyGetUserReposQuery()
+    const [page, setPage] = useState(1);
 
-    const {isLoading, isError, data} = useSearchReposQuery({search: debounced, page}, {
-        skip: debounced.length < 3,
-        refetchOnFocus: true
-      })
-      const [fetchRepos, {isLoading: areCurrentReposLoading, data: repos}] = useLazyGetUserReposQuery()
+    const {isLoading, isError, data} = useSearchReposQuery({search: debounced, page:  1 || page}, { 
+        skip: debounced.length < 3, 
+        refetchOnFocus: true 
+    })
+
+    const { goToPrevPage, goToNextPage, goToPage } = usePagination(data?.total_count!, page);
     
-      useEffect(() => {
+    useEffect(() => {
         const username = "kollarbone"
         fetchRepos({username: username, page})
         setdropdown(debounced.length > 3)
-      }, [debounced, fetchRepos, page])
+    }, [debounced, fetchRepos, page])
 
-    // const clickHandler = (username: string) => {
-        
-    // }
-
+console.log()
     return (
       <div className="main_page">
         {isError && <p>Something went wrong...</p>}
@@ -47,7 +46,13 @@ function MainPage() {
                     <RepoCard repo ={repo} key={repo.id}/>
                 </>))}
             </div>}
-            
+            <div className="pagination">
+                <button disabled={page === 1} onClick={goToPrevPage}>Previous</button>
+                    {Array.from(Array(data?.total_count)).map((_, i) => (
+                        <button key={i} disabled={i + 1 === page} onClick={() => goToPage(i + 1)}>{i + 1}</button>
+                    ))}
+                <button disabled={page === data?.total_count} onClick={goToNextPage}>Next</button>
+            </div>    
       </div>
     );
   }

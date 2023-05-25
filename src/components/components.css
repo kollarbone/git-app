@@ -3,6 +3,7 @@
     justify-content: space-between;
     background-color: #161b22;
     align-items: center;
+    width: 100%;
 }
 .navbar a {
     text-decoration: none;
@@ -12,13 +13,49 @@
 }
 
 .repo_card {
-    border: 1px solid black;
-    padding: 5px;
+    border: 1px solid #30363d;
+    padding: 20px;
     border-radius: 15px;
     margin-bottom: 2px;
-    transition: all 1s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    margin: 10px;
 }
 .repo_card:hover {
-    background-color: darkgrey;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    box-shadow: 0 4px 6px -1px rgba(226, 226, 226, 0.1), 0 2px 4px -2px rgb(226, 226, 226, 0.1);
+}
+.repo_inf {
+    display: flex;
+    flex-direction: column;
+    color: #7d8590;
+    width: 100%;
+}
+.name {
+    color: #2f81f7;
+    font-size: 16px;
+}
+.repo_name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.stars {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.stars svg {
+    margin-right: 7px;
+}
+.repo_last_commit {
+    font-size: 14px;
+    margin: 5px;
+    width: fit-content;
+}
+.repo_inf a {
+    text-decoration: none;
+    color: #b0b6be;
+    width: fit-content;
 }

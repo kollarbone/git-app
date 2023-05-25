@@ -1,0 +1,67 @@
+.loading {
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .main_page {
+    max-width: 65%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .search input{
+    height: 32px;
+    color: #ffffff;
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    font-size: 14px;
+    line-height: 1.5;
+    width: 100%;
+    padding: 5px;
+    padding-left: 10px;
+    border-radius: 10px;
+    margin: 10px;
+  }
+  
+  .pagination {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: #7d8590;
+    justify-content: center;
+  }
+  .pagination button {
+    transition: all 0.3s ease-in-out;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    min-width: 37px;
+    cursor: pointer;
+  }
+  .un_active {
+    color: #bdc8d8;
+  }
+  .active {
+    color: #636972;
+  }
+.repos_block {
+    margin: 0 auto;
+    width: 100%;
+}
+  @media (max-width: 800px) {
+    .main_page {
+        max-width: 100%;
+      }
+  }

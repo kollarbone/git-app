@@ -4,10 +4,21 @@
     background-color: #161b22;
     align-items: center;
 }
-
 .navbar a {
     text-decoration: none;
     color: #ffffffd0;
     margin-left: 15px;
     margin-right: 15px;
+}
+
+.repo_card {
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 15px;
+    margin-bottom: 2px;
+    transition: all 1s ease-in-out;
+}
+.repo_card:hover {
+    background-color: darkgrey;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }

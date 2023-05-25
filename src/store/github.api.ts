@@ -8,18 +8,23 @@ export const githubApi = createApi({
     }),
     refetchOnFocus: true,
     endpoints: build => ({
-        searchRepos: build.query<ServerResponse<IRepo>, string>({
-            query: (search: string) => ({
+        searchRepos: build.query<ServerResponse<IRepo>, {search: string, page: number}>({
+            query: ({search, page}) => ({
                 url: '/search/repositories',
                 params: {
                     q: search,
-                    rep_page: 10
+                    per_page: 10,
+                    page: page
                 }
             }),
         }),
-        getUserRepos: build.query<IRepo[], string>({
-            query: (username: string) => ({
-                url: `users/${username}/repos`
+        getUserRepos: build.query<IRepo[], {username: string, page: number}>({
+            query: ({username, page}) => ({
+                url: `users/${username}/repos`,
+                params: {
+                    per_page: 10,
+                    page: page
+                }
             })
         })
     })

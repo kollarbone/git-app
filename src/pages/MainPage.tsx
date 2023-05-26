@@ -4,6 +4,7 @@ import { useDebounce } from "../hooks/debounce";
 import RepoCard from "../components/RepoCard";
 import "./pages.css"
 import CurrentRepos from "../components/CurrentRepos";
+import {AiOutlineLoading3Quarters} from "react-icons/ai"
 
 function MainPage() {
     const [search, setSearch] = useState("")
@@ -30,7 +31,7 @@ function MainPage() {
  
     return (
       <div className="main_page">
-        {isError && <p>Something went wrong...</p>}
+        {isError && <p className="error">Something went wrong...</p>}
         <div className="search">
             <input type="text" className="search_repos" 
                 placeholder="Search for Github repos.."
@@ -39,7 +40,10 @@ function MainPage() {
         {!dropdown ?
             <CurrentRepos/>
             :<div className="repos_block">
-                {isLoading && <p className="loading">Repos are loading...</p>}
+                {isLoading && 
+                    <div className="loading_block">
+                        <AiOutlineLoading3Quarters className="loading"/>
+                    </div>}
                 {data?.items.map(repo => (
                     <RepoCard repo ={repo} key={repo.id}/>
                 ))}

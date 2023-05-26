@@ -7,7 +7,7 @@ function ReposCard() {
   const location = useLocation().pathname;
   const {isLoading, isError, data} = useGetFullInfoRepoQuery({search: location})
   let day = new Date(data?.updated_at!).toLocaleString()
-  console.log(data)
+ 
   return (
     <div className="full_info_block">
       {isError && <p className="error">Something went wrong...</p>}

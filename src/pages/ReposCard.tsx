@@ -4,10 +4,12 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BsStar } from "react-icons/bs";
 
 function ReposCard() {
-  const location = useLocation().pathname;
+  const url = useLocation().pathname;
+  const parts = url.split("/"); 
+  const location = "/" + parts.slice(3).join("/");
   const {isLoading, isError, data} = useGetFullInfoRepoQuery({search: location})
   let day = new Date(data?.updated_at!).toLocaleString()
- 
+
   return (
     <div className="full_info_block">
       {isError && <p className="error">Something went wrong...</p>}

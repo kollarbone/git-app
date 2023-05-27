@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 function RepoCard({repo}:{repo:IRepo}) {
   let data = new Date(repo.updated_at).toLocaleString()
     return (
-      <NavLink to={`/${repo.full_name}`} style={{textDecoration: "none"}}>
+      <NavLink to={`git-app/${repo.full_name}`} style={{textDecoration: "none"}}>
         <div className="repo_card">
           <div className="repo_inf">
             <div className="repo_name">

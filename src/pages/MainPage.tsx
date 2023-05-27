@@ -5,6 +5,7 @@ import RepoCard from "../components/RepoCard";
 import "./pages.css"
 import CurrentRepos from "../components/CurrentRepos";
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 function MainPage() {
     const [search, setSearch] = useState("")
@@ -12,14 +13,15 @@ function MainPage() {
     const debounced = useDebounce(search)
     const [page, setPage] = useState(1);
     const pageNumber = [];
-    const maxPage = 50;
+    const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(10);
+    const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
 
     const {isLoading, isError, data} = useSearchReposQuery({search: debounced, page: page}, { 
         skip: debounced.length < 3, 
         refetchOnFocus: true 
     })
     
-    for (let i = 1; i <= Math.min(Math.ceil(data?.total_count! / 10), maxPage); i++) {
+    for (let i = 1; i <= Math.ceil(data?.total_count! / 10); i++) {
         pageNumber.push(i);
     }
 
@@ -27,8 +29,27 @@ function MainPage() {
         setdropdown(debounced.length > 3)
     }, [debounced, page])
 
-    const paginate = (number: number) => setPage(number);
- 
+    const paginate = (number: number) => {
+        setPage(number)
+        setMaxPageNumberLimit(number+10)
+        setMinPageNumberLimit(number-1)
+    };
+
+    const renderPageNumbers = pageNumber.map((number) => {
+        if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
+          return (
+            <button className={page === number? "active": "un_active"}
+                key={number} disabled={page === number} 
+                onClick={() => paginate(number)}
+                >
+                    {number}
+            </button>
+          );
+        } else {
+          return null;
+        }
+      });
+  
     return (
       <div className="main_page">
         {isError && <p className="error">Something went wrong...</p>}
@@ -48,15 +69,22 @@ function MainPage() {
                     <RepoCard repo ={repo} key={repo.id}/>
                 ))}
                 <div className="pagination">
-                    {data?.total_count! > 10 &&
-                        pageNumber.map((number) => (
-                            <button className={page === number? "active": "un_active"}
-                                key={number} disabled={page === number} 
-                                onClick={() => paginate(number)}
-                                >
-                                    {number}
-                            </button>
-                    ))}
+                    <button
+                        onClick={ () => paginate(page - 1)}
+                        className={page === 1 ? "active": "un_active"}
+                        disabled={page === 1}
+                    >
+                        <BsChevronLeft
+                        />
+                    </button>
+                        {renderPageNumbers}
+                    <button
+                        onClick={ () => paginate(page + 1)}
+                        className={page === data?.total_count ? "active": "un_active"}
+                        disabled={page === data?.total_count}
+                    >
+                        <BsChevronRight/>
+                    </button>
                 </div> 
             </div>} 
       </div>

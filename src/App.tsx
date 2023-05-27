@@ -7,8 +7,8 @@ function App() {
   return (<>
       <Navigation/>
       <Routes>
-        <Route path="/" element={<MainPage/>}/>
-        <Route path="/*" element={<ReposCard />}/>
+        <Route path="git-app/" element={<MainPage/>}/>
+        <Route path="git-app/*" element={<ReposCard />}/>
       </Routes>
     </>);
 }
